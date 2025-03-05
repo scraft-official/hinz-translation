@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import me.hinsinger.projects.hinz.common.debug.Debug;
 import me.hinsingre.projects.hinz.translation.language.Language;
 import me.hinsingre.projects.hinz.translation.provider.TranslationProvider;
 
@@ -14,6 +15,14 @@ public class Translations {
 	
 	public static void init(TranslationProvider... providers) {
 		getInstance().providers = Arrays.asList(providers);
+		
+		Debug.finfo("Initialized %s translation providers: ", providers.length);
+		
+		for(TranslationProvider provider : providers) {
+			Debug.finfo(" - %s", provider.getName());
+		}
+		
+		Debug.info("");
 	}
 	
 	public static String translate(Translation translation, Language language) {
@@ -26,6 +35,8 @@ public class Translations {
 			
 			return provider.translate(namespace, identifier, langcode);
 		}
+		
+		Debug.fwarn("No provider found a translation for %s.%s into language %s!", namespace, identifier, langcode);
 		
 		return translation.getDefault();
 	}
