@@ -1,7 +1,7 @@
-package me.hinsingre.projects.hinz.translation;
+package me.hinsinger.hinz.translation;
 
 public interface Translation {
-	public String getDefault();
 	public String getNamespace();
 	public String getIdentifier();
+	public String getFallback();
 }
